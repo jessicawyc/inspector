@@ -24,7 +24,7 @@ email=11111@qq.com
 for region in $regions; do
 aws cloudformation create-stack --stack-name $stackname --template-body file://Arch1-template.yaml \
 --parameters  \
-ParameterKey=,ParameterValue=$email \
+ParameterKey=EmailAddress,ParameterValue=$email \
 --capabilities CAPABILITY_IAM \
 --region=$region
 echo $region
