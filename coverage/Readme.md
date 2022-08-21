@@ -32,4 +32,4 @@ done
 
 ```
 Result will be:
-![email](email.jpeg)
+![email](email.jpeg =500*680)
