@@ -32,4 +32,5 @@ done
 
 ```
 Result will be:
-![email](email.jpeg#w10)
+![email](email.jpeg)
+<img src="email.jpeg" width="50%" height="50%">
