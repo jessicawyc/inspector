@@ -31,3 +31,5 @@ echo $region
 done
 
 ```
+Result will be:
+![email](email.jpeg)
