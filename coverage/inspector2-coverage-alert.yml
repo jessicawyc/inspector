@@ -1,5 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
+  inspector-eventbridge rule-sns-email
   ** You will be billed for the AWS resources created if you create a 
   stack from this template.
 
@@ -92,10 +93,11 @@ Resources:
               "type": "$.detail-type"
             InputTemplate: |
               " Bonjour, security team, :)"
-              "There it one Machine : <machine> in region:  <region>'s inspector status is <status> "
-              "<reason>"
+              "Inspector detects a Machine : <machine> in Region:  <region> status is <status> "
+              "Reason: <reason>"
               "at <time>"
               "in Account :<Account_ID> "
+              "Please take actions accordingly"
               "Merci, bonne journée"
 
   SNSSubscription:
