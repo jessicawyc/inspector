@@ -8,8 +8,7 @@ https://aws.amazon.com/blogs/security/easier-way-to-control-access-to-aws-region
 
 ## Detective control
 How to detect the launch of ec2 in non-approved region while we can not totally prevent everything?
-### Cloudtrail
-Deploy an eventbridge rule in each non-approved region to monitor the API call ec2:runinstance, then send alert to email by using SNS
+
 ### Inspector
 Deploy an eventbridge rule in each non-approved region to monitor inspector coverage alert,then send alert to email by using SNS.
 
@@ -31,5 +30,9 @@ echo $region
 done
 
 ```
-Result will be:
+### Cloudtrail
+Deploy an eventbridge rule in each non-approved region to monitor the API call ec2:runinstance, then send alert to email by using SNS
+
+#### Result will be:
+
 <img src="email.jpeg" width="50%" height="50%">
