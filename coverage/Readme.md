@@ -32,4 +32,4 @@ done
 
 ```
 Result will be:
-![email](email.jpeg #w50)
+![email](email.jpeg#w50)
