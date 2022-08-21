@@ -21,7 +21,7 @@ email=11111@qq.com
 ```
 ```
 for region in $regions; do
-aws cloudformation create-stack --stack-name $stackname --template-body file://Arch1-template.yaml \
+aws cloudformation create-stack --stack-name $stackname --template-body file://inspector2-coverage-alert.yml \
 --parameters  \
 ParameterKey=EmailAddress,ParameterValue=$email \
 --capabilities CAPABILITY_IAM \
@@ -30,9 +30,29 @@ echo $region
 done
 
 ```
+#### Email will be like:
+
+<img src="inspector-email.jpeg" width="50%" height="50%">
 ### Cloudtrail
 Deploy an eventbridge rule in each non-approved region to monitor the API call ec2:runinstance, then send alert to email by using SNS
+#### CLI command
+```
+stackname=myteststack
+regions=($(aws ec2 describe-regions --query 'Regions[*].RegionName' --output text))
+email=11111@qq.com
+```
+```
+for region in $regions; do
+aws cloudformation create-stack --stack-name $stackname --template-body file://cloudtrail-alert.yml \
+--parameters  \
+ParameterKey=EmailAddress,ParameterValue=$email \
+--capabilities CAPABILITY_IAM \
+--region=$region
+echo $region
+done
 
-#### Result will be:
+```
 
-<img src="email.jpeg" width="50%" height="50%">
+#### Email will be like:
+
+<img src="cloudtrailemail.jpeg" width="50%" height="50%">
