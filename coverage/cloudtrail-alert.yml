@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
-  inspector-eventbridge rule-sns-email
+  coudtrail-eventbridge rule-sns-email
   ** You will be billed for the AWS resources created if you create a 
   stack from this template.
 
@@ -26,7 +26,6 @@ Resources:
   SNSTopic:
     Type: 'AWS::SNS::Topic'
     #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html
-
   SnsTopicPolicyEventRule:
     Type: "AWS::SNS::TopicPolicy"
     Properties:
@@ -67,33 +66,26 @@ Resources:
     Properties:
       Description: Eventbridge rule to receive inspector coverage event
       EventPattern:
-        source:
-          - aws.inspector2
-        detail-type:
-          - Inspector2 Coverage
         detail:
-          scanStatus:
-            statusCodeValue:
-              - INACTIVE
-              - ACTIVE
+          eventSource:
+            - ec2.amazonaws.com
+          eventName:
+            - RunInstances
 
       State: ENABLED
       Targets:
         - Arn: !Ref SNSTopic
           Id: 1Email
-          InputTransformer:
+          InputTransformer: #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-events-rule-inputtransformer.html
             InputPathsMap:
               "Account_ID": "$.account"
-              "machine": "$.resources"
-              "reason": "$.detail.scanStatus.reason"
-              "region": "$.region"
-              "status": "$.detail.scanStatus.statusCodeValue"
-              "time": "$.time"
-              "type": "$.detail-type"
+              "machine": "$.detail.responseElements.instancesSet.items[0].instanceId"
+              "principle": "$.detail.userIdentity.principalId"
+              "region": "$.detail.awsRegion"
+              "time": "$.detail.eventTime"
             InputTemplate: |
-              " Bonjour, security team, :)"
-              "Inspector detects a Machine : <machine> in Region:  <region> status is <status> "
-              "Reason: <reason>"
+              "Bonjour, security team, :)"
+              "User <principle> just launched a Machine : <machine> in Region:  <region> ."
               "at <time>"
               "in Account :<Account_ID> "
               "Please take actions accordingly"
