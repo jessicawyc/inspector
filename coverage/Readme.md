@@ -1,4 +1,4 @@
-#Laucn EC2 in certain regions
+# Launch EC2 in certain regions
 ## Preventive control
 Use SCP from the account and OU level
 https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps_examples_general.html
