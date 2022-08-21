@@ -11,5 +11,23 @@ How to detect the launch of ec2 in non-approved region?
 ### Cloudtrail
 Deploy an eventbridge rule in each non-approved region to monitor the API call ec2:runinstance, then send alert to email by using SNS
 ### Inspector
-Deploy an eventbridge rule in each non-approved region to monitor inspector coverage alert,then send alert to email by using SNS
-Deploy the [cloudformation template](inspector2-coverage-alert.yml)to each region by either CLI or Cloudformation Stacksets for multiple accounts in an Organizations.
+Deploy an eventbridge rule in each non-approved region to monitor inspector coverage alert,then send alert to email by using SNS.
+
+Download the [cloudformation template](inspector2-coverage-alert.yml) and create a stack in each non-approved region by either CLI or Cloudformation Stacksets for multiple accounts in an Organizations.
+#### CLI command
+```
+stackname=myteststack
+regions=($(aws ec2 describe-regions --query 'Regions[*].RegionName' --output text))
+email=11111@qq.com
+```
+```
+for region in $regions; do
+aws cloudformation create-stack --stack-name $stackname --template-body file://Arch1-template.yaml \
+--parameters  \
+ParameterKey=,ParameterValue=$email \
+--capabilities CAPABILITY_IAM \
+--region=$region
+echo $region
+done
+
+```
