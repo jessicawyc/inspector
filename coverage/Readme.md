@@ -7,7 +7,7 @@ Use IAM condition key for single user group or user, as below blog shows
 https://aws.amazon.com/blogs/security/easier-way-to-control-access-to-aws-regions-using-iam-policies/
 
 ## Detective control
-How to detect the launch of ec2 in non-approved region?
+How to detect the launch of ec2 in non-approved region while we can not totally prevent everything?
 ### Cloudtrail
 Deploy an eventbridge rule in each non-approved region to monitor the API call ec2:runinstance, then send alert to email by using SNS
 ### Inspector
