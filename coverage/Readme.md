@@ -8,8 +8,8 @@ https://aws.amazon.com/blogs/security/easier-way-to-control-access-to-aws-region
 
 ## Detective control
 How to detect the launch of ec2 in non-approved region?
-### cloudtrail log
+### Cloudtrail
 Deploy an eventbridge rule in each non-approved region to monitor the API call ec2:runinstance, then send alert to email by using SNS
-### Use inspector coverage Alert
+### Inspector
 Deploy an eventbridge rule in each non-approved region to monitor inspector coverage alert,then send alert to email by using SNS
-Deploy the cloudformation template to each region by either CLI or Cloudformation Stacksets for multiple accounts in an Organizations.
+Deploy the [cloudformation template] (inspector2-coverage-alert.yml)to each region by either CLI or Cloudformation Stacksets for multiple accounts in an Organizations.
